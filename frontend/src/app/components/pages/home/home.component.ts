@@ -12,17 +12,19 @@ export class HomeComponent implements OnInit{
 
   foods: Food[] = [];
   constructor(private foodServices:FoodService, activatedRoute:ActivatedRoute){
+    //everytime the params change call the function inside subscribe
     activatedRoute.params.subscribe((params)=>{
       if(params.searchTerm)
         this.foods = this.foodServices.getAllFoodsBySearchTerm(params.searchTerm);
+      else if(params.tag)
+          this.foods = this.foodServices.getAllFoodByTag(params.tag);
+      
       else
         this.foods = foodServices.getAll();
       });
-    
   }
   
   ngOnInit(): void{
 
   }
-
 }
